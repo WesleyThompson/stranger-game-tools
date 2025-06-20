@@ -1,13 +1,18 @@
 {
-    "name": "com.strangerandstrangergames.strangergametools",
-    "version": "1.0.0",
-    "displayName": "Stranger Game Tools",
-    "description": "Reusable code from S&S Games.",
-    "unity": "2019.1",
-    "unityRelease": "0b5",
-    "keywords": ["stranger"],
-    "author": {
-        "name": "Wesley Thompson",
-        "url": "https://www.wesleyathompson.com/"
-    }
+  "name": "com.strangerandstrangergames.strangergametools",
+  "version": "1.0.0",
+  "displayName": "Stranger Game Tools",
+  "description": "Reusable code from S&S Games.",
+  "unity": "2021.3",
+  "unityRelease": "0f1",
+  "keywords": [
+    "stranger"
+  ],
+  "author": {
+    "name": "Wesley Thompson",
+    "url": "https://www.wesleyathompson.com/"
+  },
+  "dependencies": {
+    "com.unity.inputsystem": "1.14.0"
+  }
 }

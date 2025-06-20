@@ -1,3 +1,6 @@
 {
-	"name": "strangerandstrangergames.strangergametools.runtime"
+	"name": "strangerandstrangergames.strangergametools.runtime",
+	"references": [
+		"Unity.InputSystem"
+	]
 }

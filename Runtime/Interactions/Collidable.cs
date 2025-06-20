@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StrangerGameTools
+namespace StrangerGameTools.Interactions
 {
     /// <summary>
     /// A collidable object that can detect collisions with other objects.

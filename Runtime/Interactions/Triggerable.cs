@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace StrangerGameTools
+namespace StrangerGameTools.Interactions
 {
     /// <summary>
     /// A triggerable object that can detect when other objects enter or exit its trigger area.

@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace StrangerGameTools
+namespace StrangerGameTools.Interactions
 {
     /// <summary>
     /// This is a base class for objects that can be contacted by other objects.
@@ -11,7 +11,7 @@ namespace StrangerGameTools
     /// It requires a Collider component to be attached to the GameObject.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(Collider)), DisallowMultipleComponent]
     public abstract class Contactable<T> : MonoBehaviour
     {
         /// <summary>
