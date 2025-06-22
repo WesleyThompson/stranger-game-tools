@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace StrangerGameTools.Interactions
@@ -7,29 +8,21 @@ namespace StrangerGameTools.Interactions
     /// </summary>
     public class Triggerable : Contactable<Collider>
     {
+        public event Action<Triggerable> OnTriggerEnterEvent;
+        public event Action<Triggerable> OnTriggerExitEvent;
+
         protected override void SetupCollider()
         {
             _collider = GetComponent<Collider>();
             _collider.isTrigger = true;
         }
 
+        protected override GameObject GetGameObject(Collider contact) => contact.gameObject;
 
-        void OnTriggerEnter(Collider other)
-        {
-            if (CanContact(other.gameObject))
-            {
-                OnContactEnter?.Invoke(other);
-                OnEnter?.Invoke();
-            }
-        }
+        void OnTriggerEnter(Collider other) =>
+            HandleEnter(other, _ => OnTriggerEnterEvent?.Invoke(this));
 
-        void OnTriggerExit(Collider other)
-        {
-            if (CanContact(other.gameObject))
-            {
-                OnContactExit?.Invoke(other);
-                OnExit?.Invoke();
-            }
-        }
+        void OnTriggerExit(Collider other) =>
+            HandleExit(other, _ => OnTriggerExitEvent?.Invoke(this));
     }
 }
