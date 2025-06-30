@@ -1,4 +1,5 @@
 using System;
+using StrangerGameTools.Input;
 using StrangerGameTools.Interactions;
 using UnityEngine;
 using UnityEngine.InputSystem;

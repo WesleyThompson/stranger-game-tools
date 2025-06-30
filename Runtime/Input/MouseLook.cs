@@ -1,8 +1,7 @@
 using System;
-using StrangerGameTools.Player;
 using UnityEngine;
 
-namespace StrangerGameTools.Player
+namespace StrangerGameTools.Input
 {
     /// <summary>
     /// MouseLook is a class that handles the mouse look functionality for a first-person character controller.

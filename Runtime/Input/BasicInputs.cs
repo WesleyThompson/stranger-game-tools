@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace StrangerGameTools.Player
+namespace StrangerGameTools.Input
 {
     /// <summary>
     /// A basic class for handling player inputs.
