@@ -7,13 +7,15 @@ namespace StrangerGameTools.Debugging
     /// </summary>
     public class EventDebugger : MonoBehaviour
     {
+        private const string _logFormat = "[EventDebugger] {0} from {1}";
+
         /// <summary>
         /// Logs a message to the console.
         /// </summary>
         /// <param name="message">The message to log.</param>
         public void LogMessage(string message)
         {
-            Debug.Log(message);
+            Debug.Log(FormatLogMessage(message));
         }
 
         /// <summary>
@@ -22,7 +24,7 @@ namespace StrangerGameTools.Debugging
         /// <param name="message">The warning message to log.</param>
         public void LogWarning(string message)
         {
-            Debug.LogWarning(message);
+            Debug.LogWarning(FormatLogMessage(message));
         }
 
         /// <summary>
@@ -31,7 +33,12 @@ namespace StrangerGameTools.Debugging
         /// <param name="message">The error message to log.</param>
         public void LogError(string message)
         {
-            Debug.LogError(message);
+            Debug.LogError(FormatLogMessage(message));
+        }
+
+        private string FormatLogMessage(string message)
+        {
+            return string.Format(_logFormat, message, gameObject.name);
         }
     }
 }
