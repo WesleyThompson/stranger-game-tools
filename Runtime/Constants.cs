@@ -18,7 +18,12 @@ namespace StrangerGameTools
         public const string PLAYER_LAYER_NAME = "Player";
         //Color
         public static readonly Color CLEAR_GREEN = new Color(0.0f, 1.0f, 0.0f, 0.35f);
-		public static readonly Color CLEAR_RED = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+        public static readonly Color CLEAR_RED = new Color(1.0f, 0.0f, 0.0f, 0.35f);
+        //Game states
+        public const string STATE_MAIN_MENU = "MainMenu";
+        public const string STATE_GAME = "Game";
+        public const string STATE_PAUSE = "Pause";
+        public const string STATE_CREDITS = "Credits";
     }
 }
 
