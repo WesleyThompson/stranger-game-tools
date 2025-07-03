@@ -1,23 +1,32 @@
+using System;
+
 namespace StrangerGameTools.FSM.Game
 {
-    public class GameState : IState
+    /// <summary>
+    /// Base class for game states in the state machine.
+    /// </summary>
+    public abstract class GameState : IState
     {
-        public void Enter(params object[] args)
+        public delegate void GameStateEvent();
+        public GameStateEvent OnEnterState;
+        public GameStateEvent OnExitState;
+
+        public virtual void Enter(params object[] args)
+        {
+            OnEnterState?.Invoke();
+        }
+
+        public virtual void Exit()
+        {
+            OnExitState?.Invoke();
+        }
+
+        public virtual void HandleInput()
         {
 
         }
 
-        public void Exit()
-        {
-
-        }
-
-        public void HandleInput()
-        {
-
-        }
-
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
 
         }

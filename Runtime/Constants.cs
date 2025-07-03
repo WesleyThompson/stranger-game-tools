@@ -24,6 +24,7 @@ namespace StrangerGameTools
         public const string STATE_GAME = "Game";
         public const string STATE_PAUSE = "Pause";
         public const string STATE_CREDITS = "Credits";
+        public const string STATE_LOADING = "Loading";
     }
 }
 

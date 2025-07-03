@@ -9,6 +9,11 @@ namespace StrangerGameTools.FSM
         readonly Dictionary<string, IState> _stateDictionary = new Dictionary<string, IState>();
         IState _currentState = new EmptyState();
 
+        /// <summary>
+        /// Initializes the state machine with an empty state.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="state"></param>
         public void AddState(string name, IState state)
         {
             _stateDictionary.Add(name, state);

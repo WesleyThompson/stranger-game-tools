@@ -1,25 +1,14 @@
+using UnityEngine;
+
 namespace StrangerGameTools.FSM.Game
 {
-    public class MainMenuState : IState
+    public class MainMenuState : GameState
     {
-        public void Enter(params object[] args)
+        public override void Enter(params object[] args)
         {
-
-        }
-
-        public void Exit()
-        {
-
-        }
-
-        public void HandleInput()
-        {
-
-        }
-
-        public void Update(float deltaTime)
-        {
-
+            base.Enter(args);
+            Cursor.lockState = CursorLockMode.None; //TODO could also use CursorLockMode.Confined, should load based on settings
+            Cursor.visible = true;
         }
     }
 }

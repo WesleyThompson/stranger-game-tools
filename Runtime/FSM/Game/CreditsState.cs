@@ -1,25 +1,13 @@
+using UnityEngine;
+
 namespace StrangerGameTools.FSM.Game
 {
-    public class CreditsState : IState
+    public class CreditsState : GameState
     {
-        public void Enter(params object[] args)
+        public override void HandleInput()
         {
-
-        }
-
-        public void Exit()
-        {
-
-        }
-
-        public void HandleInput()
-        {
-
-        }
-
-        public void Update(float deltaTime)
-        {
-
+            base.HandleInput();
+            // Handle input for the credits state, such as returning to the main menu
         }
     }
 }

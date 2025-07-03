@@ -2,26 +2,18 @@ using UnityEngine;
 
 namespace StrangerGameTools.FSM.Game
 {
-    public class PauseState : IState
+    public class PauseState : GameState
     {
-        public void Enter(params object[] args)
+        public override void Enter(params object[] args)
         {
+            base.Enter(args);
             Time.timeScale = 0f;
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            base.Exit();
             Time.timeScale = 1f;
-        }
-
-        public void HandleInput()
-        {
-
-        }
-
-        public void Update(float deltaTime)
-        {
-
         }
     }
 }

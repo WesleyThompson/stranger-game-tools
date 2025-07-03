@@ -1,4 +1,4 @@
-using StrangerGameTools.FSM.Game;
+using StrangerGameTools.Settings;
 using UnityEngine;
 
 namespace StrangerGameTools
@@ -6,14 +6,45 @@ namespace StrangerGameTools
     /// <summary>
     ///
     /// </summary>
+    [DisallowMultipleComponent]
     public class GameOrchestrator : MonoBehaviour
     {
-        public static GameOrchestrator Instance { get; private set; }
+        [SerializeField]
+        private GameModeSettings _gameModeSettings;
         public static GameStateManager GameStateManager;
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            GameStateManager.Instance.Initialize();
+            SetupGameStateManager();
+        }
+
+        void Start()
+        {
+            GameStateManager.StartMainMenu();
+        }
+
+        private void SetupGameStateManager()
+        {
+            GameStateManager = GameStateManager.Instance;
+            GameStateManager.Initialize(_gameModeSettings);
+        }
+
+        [ContextMenu("Start Main Menu")]
+        public void StartMainMenu()
+        {
+            GameStateManager.StartMainMenu();
+        }
+
+        [ContextMenu("Start Game")]
+        public void StartGame()
+        {
+            GameStateManager.StartGame();
+        }
+
+        [ContextMenu("Start Pause")]
+        public void StartPause()
+        {
+            GameStateManager.StartPause();
         }
     }
 }
