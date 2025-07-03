@@ -1,4 +1,4 @@
-namespace StrangerGameTools
+namespace StrangerGameTools.Management
 {
     /// <summary>
     /// A generic base class for singleton objects.

@@ -1,10 +1,10 @@
 using StrangerGameTools.Settings;
 using UnityEngine;
 
-namespace StrangerGameTools
+namespace StrangerGameTools.Management
 {
     /// <summary>
-    ///
+    /// Manages game wide settings and orchestrates the game states.
     /// </summary>
     [DisallowMultipleComponent]
     public class GameOrchestrator : MonoBehaviour

@@ -4,7 +4,7 @@ using StrangerGameTools.FSM.Game;
 using StrangerGameTools.Settings;
 using UnityEngine;
 
-namespace StrangerGameTools
+namespace StrangerGameTools.Management
 {
     /// <summary>
     /// Manages the game states in the application.
