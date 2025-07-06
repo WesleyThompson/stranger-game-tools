@@ -50,6 +50,7 @@ namespace StrangerGameTools.Input
 
         protected void OnInteract(InputValue value)
         {
+            OnInteractEvent?.Invoke();
             InteractInput(value.isPressed);
         }
 
@@ -60,11 +61,13 @@ namespace StrangerGameTools.Input
 
         protected void OnDebug(InputValue value)
         {
+            OnDebugEvent?.Invoke();
             DebugInput(value.isPressed);
         }
 
         protected void OnPause(InputValue value)
         {
+            OnPauseEvent?.Invoke();
             PauseInput(value.isPressed);
         }
 

@@ -30,6 +30,11 @@ namespace StrangerGameTools.Management
 
         public const string GAMESTATEMANAGER_LOG_TAG = "[GameStateManager] ";
 
+        ~GameStateManager()
+        {
+            _basicInputs.OnPauseEvent -= TogglePause;
+        }
+
         /// <summary>
         /// Initializes the GameStateManager.
         /// Pass any necessary initialization parameters here.
@@ -75,6 +80,15 @@ namespace StrangerGameTools.Management
         {
             Debug.Log(GAMESTATEMANAGER_LOG_TAG + "Loading State Started");
             _stateMachine.ChangeState(Constants.STATE_LOADING);
+        }
+
+        public static void EndGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         public static void TogglePause()

@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 namespace StrangerGameTools.Interactions
 {
+    /// <summary>
+    /// Base class for collider based interactions
+    /// </summary>
+    /// <typeparam name="T">Type of the collision return</typeparam>
     [RequireComponent(typeof(Collider)), DisallowMultipleComponent]
     public abstract class Contactable<T> : MonoBehaviour
     {

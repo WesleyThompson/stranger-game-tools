@@ -1,35 +1,25 @@
 using StrangerGameTools.Management;
-using UnityEngine;
 
 namespace StrangerGameTools.UI
 {
-    [DisallowMultipleComponent]
-    public class BasicMainMenuController : MonoBehaviour
+    public class BasicMainMenuController : MenuControllerBase
     {
-        [SerializeField]
-        protected GameObject _mainMenuRootElement;
-
-        void Awake()
+        protected override void SubscribeToEvents()
         {
-            GameStateManager.OnEnterMainMenu += OnEnterMainMenu;
-            GameStateManager.OnExitMainMenu += OnExitMainMenu;
+            base.SubscribeToEvents();
+            GameStateManager.OnEnterMainMenu += HandleEnterMainMenu;
+            GameStateManager.OnExitMainMenu += HandleExitMainMenu;
         }
 
-        void OnDestroy()
+        protected override void UnsubscribeFromEvents()
         {
-            GameStateManager.OnEnterMainMenu -= OnEnterMainMenu;
-            GameStateManager.OnExitMainMenu -= OnExitMainMenu;
+            base.UnsubscribeFromEvents();
+            GameStateManager.OnEnterMainMenu -= HandleEnterMainMenu;
+            GameStateManager.OnExitMainMenu -= HandleExitMainMenu;
         }
 
-        void OnEnterMainMenu()
-        {
-            _mainMenuRootElement.SetActive(true);
-        }
-
-        void OnExitMainMenu()
-        {
-            _mainMenuRootElement.SetActive(false);
-        }
+        private void HandleEnterMainMenu() => ShowMenu();
+        private void HandleExitMainMenu() => HideMenu();
 
         public void StartGame()
         {

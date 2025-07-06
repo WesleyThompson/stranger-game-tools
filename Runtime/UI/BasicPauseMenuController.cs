@@ -1,40 +1,29 @@
-using StrangerGameTools.FSM.Game;
 using StrangerGameTools.Management;
-using UnityEngine;
 
-//TODO Create base class for game menus that work with the GameStateManager
 namespace StrangerGameTools.UI
 {
-    public class BasicPauseMenuController : MonoBehaviour
+    public class BasicPauseMenuController : MenuControllerBase
     {
-        [SerializeField]
-        protected GameObject _pauseMenuRootElement;
-
-        void Awake()
+        protected override void SubscribeToEvents()
         {
-            GameStateManager.OnEnterPause += OnEnterPause;
-            GameStateManager.OnExitPause += OnExitPause;
+            base.SubscribeToEvents();
+            GameStateManager.OnEnterPause += HandleEnterPause;
+            GameStateManager.OnExitPause += HandleExitPause;
         }
 
-        void OnDestroy()
+        protected override void UnsubscribeFromEvents()
         {
-            GameStateManager.OnEnterPause -= OnEnterPause;
-            GameStateManager.OnExitPause -= OnExitPause;
+            base.UnsubscribeFromEvents();
+            GameStateManager.OnEnterPause -= HandleEnterPause;
+            GameStateManager.OnExitPause -= HandleExitPause;
         }
 
-        protected void OnEnterPause()
-        {
-            _pauseMenuRootElement.SetActive(true);
-        }
-
-        protected void OnExitPause()
-        {
-            _pauseMenuRootElement.SetActive(false);
-        }
+        private void HandleEnterPause() => ShowMenu();
+        private void HandleExitPause() => HideMenu();
 
         public void ResumeGame()
         {
-            GameStateManager.StartGame(); //Should there be some function for resuming separate from start game?
+            GameStateManager.StartGame();
         }
     }
 }
