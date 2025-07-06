@@ -14,5 +14,12 @@
   },
   "dependencies": {
     "com.unity.inputsystem": "1.14.0"
-  }
+  },
+  "samples": [
+    {
+        "displayName": "Stranger Samples",
+        "description": "The basics to get you started.",
+        "path": "Samples~/StrangerSamples"
+    }
+  ]
 }
