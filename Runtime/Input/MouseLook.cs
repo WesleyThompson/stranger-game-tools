@@ -31,8 +31,8 @@ namespace StrangerGameTools.Input
 
         public void LookRotation(Transform character, Transform camera, BasicInputs inputs)
         {
-            float yRot =  inputs.look.x * XSensitivity;
-            float xRot = -inputs.look.y * YSensitivity;
+            float yRot =  inputs.Look.x * XSensitivity;
+            float xRot = -inputs.Look.y * YSensitivity;
 
             _characterTargetRot *= Quaternion.Euler (0f, yRot, 0f);
             _cameraTargetRot *= Quaternion.Euler (-xRot, 0f, 0f);

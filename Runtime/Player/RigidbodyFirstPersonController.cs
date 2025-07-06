@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace StrangerGameTools.Player
 {
-    [RequireComponent(typeof(BasicInputs), typeof(PlayerInput), typeof(Collidable))]
+    [RequireComponent(typeof(Collidable))]
     [DisallowMultipleComponent, RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
     public class RigidbodyFirstPersonController : MonoBehaviour
     {
@@ -59,8 +59,8 @@ namespace StrangerGameTools.Player
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _collidable = GetComponent<Collidable>();
-            _inputs = GetComponent<BasicInputs>();
-            _playerInput = GetComponent<PlayerInput>();
+            _inputs = FindAnyObjectByType<BasicInputs>();
+            _playerInput = FindAnyObjectByType<PlayerInput>();
         }
 
         private void FixedUpdate()
@@ -71,10 +71,10 @@ namespace StrangerGameTools.Player
                 return;
             }
 
-            if (_canJump && _inputs.jump)
+            if (_canJump && _inputs.Jump)
             {
                 Jump();
-                _inputs.jump = false;
+                _inputs.Jump = false;
             }
             Move();
         }
@@ -91,11 +91,11 @@ namespace StrangerGameTools.Player
 
         private void Move()
         {
-            Vector3 moveDirection = new Vector3(_inputs.move.x, 0.0f, _inputs.move.y).normalized;
-            if (_inputs.move != Vector2.zero)
+            Vector3 moveDirection = new Vector3(_inputs.Move.x, 0.0f, _inputs.Move.y).normalized;
+            if (_inputs.Move != Vector2.zero)
             {
                 //If there is input, calculate the movement direction based on the camera's forward and right vectors
-                moveDirection = transform.right * _inputs.move.x + transform.forward * _inputs.move.y;
+                moveDirection = transform.right * _inputs.Move.x + transform.forward * _inputs.Move.y;
             }
             _rigidbody.linearVelocity = new Vector3(moveDirection.x * _moveSpeed, _rigidbody.linearVelocity.y, moveDirection.z * _moveSpeed);
         }
@@ -104,8 +104,8 @@ namespace StrangerGameTools.Player
         {
             float deltaTimeMultiplier =IsCurrentDeviceMouse ? 1.0f : Time.fixedDeltaTime;
 
-            _horizonalLookAngle = _inputs.look.x * _lookSensitivity * deltaTimeMultiplier;
-            _verticalLookAngle += _inputs.look.y * _lookSensitivity * deltaTimeMultiplier;
+            _horizonalLookAngle = _inputs.Look.x * _lookSensitivity * deltaTimeMultiplier;
+            _verticalLookAngle += _inputs.Look.y * _lookSensitivity * deltaTimeMultiplier;
 
             //Rotate the capsule for horizontal look, rotate camera for vertical
             transform.Rotate(Vector3.up * _horizonalLookAngle);

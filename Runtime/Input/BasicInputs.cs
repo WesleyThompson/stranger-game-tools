@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -9,87 +10,99 @@ namespace StrangerGameTools.Input
     /// A basic class for handling player inputs.
     /// This class can be extended to implement custom input handling.
     /// </summary>
-    [DisallowMultipleComponent]
+    [DisallowMultipleComponent, RequireComponent(typeof(PlayerInput))]
     public class BasicInputs : MonoBehaviour
     {
-		[Header("Character Input Values")]
-		public Vector2 move;
-		public Vector2 look;
-		public bool jump;
-		public bool interact;
-		public bool sprint;
+        [Header("Character Input Values")]
+        public Vector2 Move;
+        public Vector2 Look;
+        public bool Pause;
+        public bool Jump;
+        public bool Interact;
+        public bool Sprint;
+        public bool Debug;
 
-		[Header("Movement Settings")]
-		public bool analogMovement;
+        [Header("Mouse Cursor Settings")]
+        public bool cursorInputForLook = true;
 
-		[Header("Mouse Cursor Settings")]
-		public bool cursorLocked = true;
-		public bool cursorInputForLook = true;
+        public event Action OnInteractEvent;
+        public event Action OnDebugEvent;
+        public event Action OnPauseEvent;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
-		{
-			MoveInput(value.Get<Vector2>());
-		}
+        protected void OnMove(InputValue value)
+        {
+            MoveInput(value.Get<Vector2>());
+        }
 
-		public void OnLook(InputValue value)
-		{
-			if(cursorInputForLook)
-			{
-				LookInput(value.Get<Vector2>());
-			}
-		}
+        protected void OnLook(InputValue value)
+        {
+            if (cursorInputForLook)
+            {
+                LookInput(value.Get<Vector2>());
+            }
+        }
 
-		public void OnJump(InputValue value)
-		{
-			JumpInput(value.isPressed);
-		}
+        protected void OnJump(InputValue value)
+        {
+            JumpInput(value.isPressed);
+        }
 
-		public void OnInteract(InputValue value)
-		{
-			InteractInput(value.isPressed);
-		}
+        protected void OnInteract(InputValue value)
+        {
+            InteractInput(value.isPressed);
+        }
 
-		public void OnSprint(InputValue value)
-		{
-			SprintInput(value.isPressed);
-		}
+        protected void OnSprint(InputValue value)
+        {
+            SprintInput(value.isPressed);
+        }
+
+        protected void OnDebug(InputValue value)
+        {
+            DebugInput(value.isPressed);
+        }
+
+        protected void OnPause(InputValue value)
+        {
+            PauseInput(value.isPressed);
+        }
+
 #endif
 
+        private void MoveInput(Vector2 newMoveDirection)
+        {
+            Move = newMoveDirection;
+        }
 
-		public void MoveInput(Vector2 newMoveDirection)
-		{
-			move = newMoveDirection;
-		}
+        private void LookInput(Vector2 newLookDirection)
+        {
+            Look = newLookDirection;
+        }
 
-		public void LookInput(Vector2 newLookDirection)
-		{
-			look = newLookDirection;
-		}
+        private void JumpInput(bool newJumpState)
+        {
+            Jump = newJumpState;
+        }
 
-		public void JumpInput(bool newJumpState)
-		{
-			jump = newJumpState;
-		}
+        private void InteractInput(bool newInteractState)
+        {
+            Interact = newInteractState;
+        }
 
-		public void InteractInput(bool newInteractState)
-		{
-			interact = newInteractState;
-		}
+        private void SprintInput(bool newSprintState)
+        {
+            Sprint = newSprintState;
+        }
 
-		public void SprintInput(bool newSprintState)
-		{
-			sprint = newSprintState;
-		}
+        private void DebugInput(bool newDebugState)
+        {
+            Debug = newDebugState;
+        }
 
-		private void OnApplicationFocus(bool hasFocus)
-		{
-			SetCursorState(cursorLocked);
-		}
-
-		public void SetCursorState(bool newState)
-		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-		}
+        private void PauseInput(bool newPauseState)
+        {
+            Pause = newPauseState;
+        }
     }
 }

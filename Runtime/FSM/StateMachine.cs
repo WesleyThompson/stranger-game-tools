@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StrangerGameTools.FSM
 {
@@ -45,6 +46,11 @@ namespace StrangerGameTools.FSM
         public void HandleInput()
         {
             _currentState.HandleInput();
+        }
+
+        public string GetCurrentStateString()
+        {
+            return _stateDictionary.Where(state => state.Value.Equals(_currentState)).Select(state => state.Key).FirstOrDefault();
         }
     }
 }

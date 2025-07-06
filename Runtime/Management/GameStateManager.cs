@@ -1,6 +1,7 @@
 using System;
 using StrangerGameTools.FSM;
 using StrangerGameTools.FSM.Game;
+using StrangerGameTools.Input;
 using StrangerGameTools.Settings;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ namespace StrangerGameTools.Management
 
         static readonly StateMachine _stateMachine = new StateMachine();
         protected GameModeSettings _gameModeSettings;
+        protected BasicInputs _basicInputs;
 
         public const string GAMESTATEMANAGER_LOG_TAG = "[GameStateManager] ";
 
@@ -32,9 +34,11 @@ namespace StrangerGameTools.Management
         /// Initializes the GameStateManager.
         /// Pass any necessary initialization parameters here.
         /// </summary>
-        public void Initialize(GameModeSettings gameModeSettings)
+        public void Initialize(GameModeSettings gameModeSettings, BasicInputs basicInputs)
         {
             _gameModeSettings = gameModeSettings;
+            _basicInputs = basicInputs;
+            _basicInputs.OnPauseEvent += TogglePause;
 
             _stateMachine.AddState(Constants.STATE_MAIN_MENU, CreateGameState(Constants.STATE_MAIN_MENU, _gameModeSettings));
             _stateMachine.AddState(Constants.STATE_GAME, CreateGameState(Constants.STATE_GAME, _gameModeSettings));
@@ -73,6 +77,28 @@ namespace StrangerGameTools.Management
             _stateMachine.ChangeState(Constants.STATE_LOADING);
         }
 
+        public static void TogglePause()
+        {
+            if (_stateMachine.GetCurrentStateString().Equals(Constants.STATE_PAUSE))
+            {
+                StartGame();
+            }
+            else if (_stateMachine.GetCurrentStateString().Equals(Constants.STATE_GAME))
+            {
+                StartPause();
+            }
+        }
+
+        public static void Update(float deltaTime)
+        {
+            _stateMachine.Update(deltaTime);
+        }
+
+        public static void HandleInput()
+        {
+            _stateMachine.HandleInput();
+        }
+
         protected string GetCurrentState()
         {
             return _stateMachine.CurrentState.GetType().Name ?? "No current state";
@@ -81,16 +107,6 @@ namespace StrangerGameTools.Management
         protected static void ChangeState(string stateName, params object[] args)
         {
             _stateMachine.ChangeState(stateName, args);
-        }
-
-        protected static void Update(float deltaTime)
-        {
-            _stateMachine.Update(deltaTime);
-        }
-
-        protected static void HandleInput()
-        {
-            _stateMachine.HandleInput();
         }
 
         /// <summary>
@@ -103,30 +119,31 @@ namespace StrangerGameTools.Management
         protected GameState CreateGameState(string stateName, GameModeSettings settings)
         {
             GameState gameState;
+            GameStateSettings gameStateSettings = _gameModeSettings.GetStateSettingsByName(stateName);
             switch (stateName)
             {
                 case Constants.STATE_MAIN_MENU:
-                    gameState = new MainMenuState();
+                    gameState = new MainMenuState(gameStateSettings);
                     gameState.OnEnterState += () => OnEnterMainMenu?.Invoke();
                     gameState.OnExitState += () => OnExitMainMenu?.Invoke();
                     break;
                 case Constants.STATE_GAME:
-                    gameState = new GameplayState();
+                    gameState = new GameplayState(gameStateSettings);
                     gameState.OnEnterState += () => OnEnterGame?.Invoke();
                     gameState.OnExitState += () => OnExitGame?.Invoke();
                     break;
                 case Constants.STATE_PAUSE:
-                    gameState = new PauseState();
+                    gameState = new PauseState(gameStateSettings);
                     gameState.OnEnterState += () => OnEnterPause?.Invoke();
                     gameState.OnExitState += () => OnExitPause?.Invoke();
                     break;
                 case Constants.STATE_CREDITS:
-                    gameState = new CreditsState();
+                    gameState = new CreditsState(gameStateSettings);
                     gameState.OnEnterState += () => OnEnterCredits?.Invoke();
                     gameState.OnExitState += () => OnExitCredits?.Invoke();
                     break;
                 case Constants.STATE_LOADING:
-                    gameState = new LoadingState();
+                    gameState = new LoadingState(gameStateSettings);
                     gameState.OnEnterState += () => OnEnterLoading?.Invoke();
                     gameState.OnExitState += () => OnExitLoading?.Invoke();
                     break;

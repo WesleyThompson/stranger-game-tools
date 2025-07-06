@@ -1,3 +1,4 @@
+using StrangerGameTools.Input;
 using StrangerGameTools.Settings;
 using UnityEngine;
 
@@ -9,9 +10,15 @@ namespace StrangerGameTools.Management
     [DisallowMultipleComponent]
     public class GameOrchestrator : MonoBehaviour
     {
+
         [SerializeField]
         private GameModeSettings _gameModeSettings;
-        public static GameStateManager GameStateManager;
+        [SerializeField]
+        private BasicInputs _basicInputs;
+
+        [Header("Debug Settings")]
+        [SerializeField]
+        private bool _startInGameState = false;
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -20,31 +27,30 @@ namespace StrangerGameTools.Management
 
         void Start()
         {
-            GameStateManager.StartMainMenu();
+            if (_startInGameState)
+            {
+                GameStateManager.StartGame();
+            }
+            else
+            {
+                GameStateManager.StartMainMenu();
+            }
+        }
+
+        void Update()
+        {
+            GameStateManager.Update(Time.deltaTime);
+            GameStateManager.HandleInput();
         }
 
         private void SetupGameStateManager()
         {
-            GameStateManager = GameStateManager.Instance;
-            GameStateManager.Initialize(_gameModeSettings);
+            GameStateManager.Instance.Initialize(_gameModeSettings, _basicInputs);
         }
 
-        [ContextMenu("Start Main Menu")]
-        public void StartMainMenu()
-        {
-            GameStateManager.StartMainMenu();
-        }
-
-        [ContextMenu("Start Game")]
         public void StartGame()
         {
             GameStateManager.StartGame();
-        }
-
-        [ContextMenu("Start Pause")]
-        public void StartPause()
-        {
-            GameStateManager.StartPause();
         }
     }
 }

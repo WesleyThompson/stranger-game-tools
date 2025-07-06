@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace StrangerGameTools.Settings
@@ -11,6 +12,11 @@ namespace StrangerGameTools.Settings
     public class GameModeSettings : ScriptableObject
     {
         public GameStateSettings[] GameStateSettings;
+
+        public GameStateSettings GetStateSettingsByName(string name)
+        {
+            return GameStateSettings.FirstOrDefault(gs => gs.GameModeName == name);
+        }
     }
 
     /// <summary>

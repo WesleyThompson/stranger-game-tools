@@ -1,4 +1,6 @@
 using System;
+using StrangerGameTools.Settings;
+using UnityEngine;
 
 namespace StrangerGameTools.FSM.Game
 {
@@ -11,9 +13,18 @@ namespace StrangerGameTools.FSM.Game
         public GameStateEvent OnEnterState;
         public GameStateEvent OnExitState;
 
+        protected GameStateSettings gameStateSettings;
+
+        public GameState(GameStateSettings gameStateSettings)
+        {
+            this.gameStateSettings = gameStateSettings;
+        }
+
         public virtual void Enter(params object[] args)
         {
             OnEnterState?.Invoke();
+            Cursor.lockState = gameStateSettings.CursorSettings.LockMode;
+            Cursor.visible = gameStateSettings.CursorSettings.Visible;
         }
 
         public virtual void Exit()

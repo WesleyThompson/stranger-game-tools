@@ -1,3 +1,4 @@
+using StrangerGameTools.Settings;
 using UnityEngine;
 
 namespace StrangerGameTools.FSM.Game
@@ -10,6 +11,9 @@ namespace StrangerGameTools.FSM.Game
     /// </remarks>
     public class LoadingState : GameState
     {
+        public LoadingState(GameStateSettings gameStateSettings) : base(gameStateSettings)
+        {
 
+        }
     }
 }

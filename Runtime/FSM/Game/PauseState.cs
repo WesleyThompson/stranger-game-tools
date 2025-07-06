@@ -1,9 +1,15 @@
+using StrangerGameTools.Settings;
 using UnityEngine;
 
 namespace StrangerGameTools.FSM.Game
 {
     public class PauseState : GameState
     {
+        public PauseState(GameStateSettings gameStateSettings) : base(gameStateSettings)
+        {
+
+        }
+
         public override void Enter(params object[] args)
         {
             base.Enter(args);
@@ -14,6 +20,12 @@ namespace StrangerGameTools.FSM.Game
         {
             base.Exit();
             Time.timeScale = 1f;
+        }
+
+        public override void HandleInput()
+        {
+            base.HandleInput();
+
         }
     }
 }

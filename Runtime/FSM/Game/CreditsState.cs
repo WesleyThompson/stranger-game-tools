@@ -1,9 +1,15 @@
+using StrangerGameTools.Settings;
 using UnityEngine;
 
 namespace StrangerGameTools.FSM.Game
 {
     public class CreditsState : GameState
     {
+        public CreditsState(GameStateSettings gameStateSettings) : base(gameStateSettings)
+        {
+
+        }
+
         public override void HandleInput()
         {
             base.HandleInput();
