@@ -1,10 +1,11 @@
 # Installation
-Add this to your `manifest.json`:
+1. Add this to your `manifest.json`:
 ```
 "dependencies:{
     "com.strangerandstrangergames.strangergametools": "https://github.com/WesleyThompson/stranger-game-tools.git"
 }
 ```
+2. Reload your package manager window.
 
 # License & Attribution
 This project is licensed under the MIT License with Attribution Requirement – see the LICENSE file for full details.
