@@ -2,12 +2,12 @@ namespace StrangerGameTools.Player
 {
     public interface IStrangerPlayer
     {
-        protected bool canLook {get; set;}
-        protected bool canJump {get; set;}
-        protected bool isControllable {get; set;}
-        protected bool isGrounded {get; set;}
-        protected float moveSpeed {get; set;}
+        bool CanLook { get; set; }
+        bool CanJump { get; set; }
+        bool IsControllable { get; set; }
+        bool IsGrounded { get; set; }
+        float MoveSpeed { get; set; }
 
-        public abstract void Setup();
+        void Setup();
     }
 }
